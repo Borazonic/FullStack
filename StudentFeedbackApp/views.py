@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -35,6 +34,29 @@ def signup_view(request):
                 Student.objects.create(user=user)  # Create a student profile for the user
             elif user_role == 'staff':
                 user.is_staff = True  # Mark the user as staff
+                user.save()  # Save the user
+            login(request, user)
+            return redirect('homepage')  # Redirect to homepage after signup
+    else:
+        form = StudentForm()
+    return render(request, 'signup.html', {'form': form})
+
+@login_required
+def create_review(request, teacher_id):
+    teacher = get_object_or_404(Teacher, pk=teacher_id)
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.teacher = teacher
+            review.student = request.user.student
+            review.save()
+            return redirect('teacher_detail', pk=teacher_id)
+    else:
+        form = ReviewForm()
+
+    return render(request, 'create_review.html', {'form': form, 'teacher': teacher})
 
 @login_required
 def create_teacher(request):

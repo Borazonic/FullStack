@@ -16,11 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from StudentFeedbackApp.views import CSRFTokenView,StudentReviewCreate,TeacherListCreate,TeacherDetail,StudentDetail,StudentListCreate,ReviewList,ReviewDetail,UserLogin,UserSignup
+from . import views
 from django.urls import path
 
 urlpatterns = [
-<<<<<<< HEAD
     path('', views.homepage, name='homepage'),
     path('students', views.student_manage, name='student-manage'),  # Redirect to student management page by default
     path('students/<int:pk>/', views.delete_student, name='delete-student'),
@@ -35,18 +34,5 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('logout/', views.logout_view, name='logout'),
     path('students/<int:pk>/delete/', views.delete_student, name='delete_student'),  # Define URL pattern for deleting a student
-=======
-    path('admin/', admin.site.urls),
-    path('student-review/', StudentReviewCreate.as_view(), name='student-review-create'),
-    path('teachers/', TeacherListCreate.as_view(), name='teacher-list-create'),
-    path('teachers/<int:pk>/', TeacherDetail.as_view(), name='teacher-detail'),
-    path('students/<int:pk>/', StudentDetail.as_view(), name='student-detail'),
-    path('students/', StudentListCreate.as_view(), name='student-list-create'),
-    path('reviews/', ReviewList.as_view(), name='review-list'),
-    path('reviews/<int:pk>/', ReviewDetail.as_view(), name='review-detail'),
-    path('login/', UserLogin.as_view(), name='user-login'),
-    path('signup/', UserSignup.as_view(), name='user-signup'),
-    path('get-csrf-token/', CSRFTokenView.as_view(), name='get_csrf_token'),
->>>>>>> 51c909ada6ff0ba4f73337b943b67ca149b3ea87
 ]
 

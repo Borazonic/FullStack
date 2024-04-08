@@ -10,10 +10,6 @@
             {% for teacher in teachers %}
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 {{ teacher.Name }}
-                <form method="post" action="{% url 'delete_teacher' teacher.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                </form>
             </li>
             {% empty %}
             <li class="list-group-item">No teachers available</li>
